@@ -79,12 +79,11 @@ class FolderScannerApp(QtWidgets.QWidget):
             QtWidgets.QMessageBox.warning(self, 'Error', 'Please select a valid folder.')
             return
 
-        folder_structure = self.scanDirectory(folder)
+        folder_structure = os.path.basename(folder) + '/\n' + self.scanDirectory(folder)
         self.resultsText.setPlainText(folder_structure)
 
     def scanDirectory(self, folder, indent=0):
         result = ''
-        prefix = '├── ' if indent > 0 else ''
         items = sorted(os.listdir(folder))
         items = [item for item in items if self.show_hidden or not item.startswith('.')]
 
